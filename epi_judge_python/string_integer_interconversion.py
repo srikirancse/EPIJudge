@@ -1,16 +1,55 @@
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
+# def int_to_string(x):
+#     result = []
+#     is_negative = False 
+#     if (x < 0):
+#         x = -x
+#         is_negative = True
+    
+#     while True:
+#         result.append(chr(ord('0') + (x % 10)))
+#         x //= 10
+#         if x == 0:
+#             break
+    
+#     return ('-' if is_negative else '') + ''.join(reversed(result))
 
 def int_to_string(x):
-    # TODO - you fill in here.
-    return ''
+    result = []
+    is_negative = False
+    if x < 0:
+        x = -x
+        is_negative = True
 
+    while True:
+        result.append(str(x % 10))
+        x //= 10
+        if x == 0:
+            break
+
+    return ('-' if is_negative else '') + ''.join(reversed(result))
+
+
+import string
 
 def string_to_int(s):
-    # TODO - you fill in here.
-    return 0
+    result = 0
+    reminder = 1
 
+    if s[0] == '-':
+        reminder = -1
+
+    s = s[s[0] == '-':]
+
+    for i in range(len(s)):
+        result = (result * 10) + int(s[i])
+
+    return result * reminder
+
+
+print(string_to_int("-345"))
 
 def wrapper(x, s):
     if int_to_string(x) != s:

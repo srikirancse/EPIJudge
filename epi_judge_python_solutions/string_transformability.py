@@ -27,6 +27,8 @@ def transform_string(D, s, t):
                     q.append(StringWithDistance(cand, f.distance + 1))
     return -1  # Cannot find a possible transformations.
 
+transform_string(['bat' ,'cot', 'dog', 'dag', 'dot', 'cat'], 'cat', 'dog')
+
 
 def transform_string_pythonic(D, s, t):
     if s == t:

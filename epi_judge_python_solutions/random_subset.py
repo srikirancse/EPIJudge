@@ -7,6 +7,7 @@ from test_framework.random_sequence_checker import (
     compute_combination_idx, run_func_with_retries)
 from test_framework.test_utils import enable_executor_hook
 
+import random
 
 def random_subset(n, k):
 
@@ -20,10 +21,12 @@ def random_subset(n, k):
         changed_elements[i] = rand_idx_mapped
     return [changed_elements[i] for i in range(k)]
 
+print(random_subset(8, 4))
 
 # Pythonic solution
 def random_subset_pythonic(n, k):
     return random.sample(range(n), k)
+
 
 
 @enable_executor_hook

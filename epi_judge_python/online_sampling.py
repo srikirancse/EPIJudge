@@ -1,4 +1,5 @@
 import functools
+import itertools
 
 from test_framework import generic_test
 from test_framework.random_sequence_checker import (
@@ -8,9 +9,34 @@ from test_framework.test_utils import enable_executor_hook
 
 
 # Assumption: there are at least k elements in the stream.
+import random
+# def online_random_sample(stream, k):
+#     results = list(itertools.islice(stream, k))
+#     count = k
+
+#     for x in stream:
+#         count += 1
+
+#         random_index = random.randrange(count)
+#         if random_index < k:
+#             results[random_index] = x
+
+#     return results
+
+
 def online_random_sample(stream, k):
-    # TODO - you fill in here.
-    return []
+    sampling_results = list(itertools.islice(stream, k))
+
+    num_seen_so_far = k
+
+    for i in stream:
+        num_seen_so_far += 1
+        r = random.randrange(num_seen_so_far)
+        if r < k:
+            sampling_results[r] = i
+
+    return sampling_results
+
 
 
 @enable_executor_hook

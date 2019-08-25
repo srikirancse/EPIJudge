@@ -2,8 +2,24 @@ from test_framework import generic_test
 
 
 def evaluate(expression):
-    # TODO - you fill in here.
-    return 0
+    DELIMITER = ','
+    stack = []
+
+    OPERATORS = {
+        '+': lambda y, x: x + y,
+        '-': lambda y, x: x - y,
+        '*': lambda y, x: x * y,
+        '/': lambda y, x: x // y
+    }
+
+    for token in expression.split(DELIMITER):
+        if token in OPERATORS:
+            stack.append(OPERATORS[token](stack.pop(), stack.pop()))
+
+        else:
+            stack.append(int(token))
+
+    return stack[-1]
 
 
 if __name__ == '__main__':

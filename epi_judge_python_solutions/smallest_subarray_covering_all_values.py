@@ -29,19 +29,17 @@ def find_smallest_sequentially_covering_subset(paragraph, keywords):
             if keyword_idx == 0:  # First keyword.
                 shortest_subarray_length[keyword_idx] = 1
             elif shortest_subarray_length[keyword_idx - 1] != float('inf'):
-                distance_to_previous_keyword = (
-                    i - latest_occurrence[keyword_idx - 1])
-                shortest_subarray_length[keyword_idx] = (
-                    distance_to_previous_keyword +
-                    shortest_subarray_length[keyword_idx - 1])
+                distance_to_previous_keyword = (i - latest_occurrence[keyword_idx - 1])
+                shortest_subarray_length[keyword_idx] = (distance_to_previous_keyword + shortest_subarray_length[keyword_idx - 1])
             latest_occurrence[keyword_idx] = i
 
             # Last keyword, for improved subarray.
-            if (keyword_idx == len(keywords) - 1
-                    and shortest_subarray_length[-1] < shortest_distance):
+            if (keyword_idx == len(keywords) - 1 and shortest_subarray_length[-1] < shortest_distance):
                 shortest_distance = shortest_subarray_length[-1]
                 result = Subarray(i - shortest_distance + 1, i)
     return result
+
+print(find_smallest_sequentially_covering_subset(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "2", "4", "6", "1", "0", "1", "0", "1", "0", "3", "2", "1", "0"], ["0", "2", "9", "4", "6"]))
 
 
 @enable_executor_hook

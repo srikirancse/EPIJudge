@@ -15,6 +15,7 @@ def random_sampling(k, A):
         r = random.randint(i, len(A) - 1)
         A[i], A[r] = A[r], A[i]
 
+    return A
 
 # Pythonic solution
 def random_sampling_pythonic(k, A):

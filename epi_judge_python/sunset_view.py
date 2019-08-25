@@ -1,9 +1,20 @@
 from test_framework import generic_test
+import collections
 
 
 def examine_buildings_with_sunset(sequence):
-    # TODO - you fill in here.
-    return []
+    BuildingsWithHeight = collections.namedtuple(
+        'BuildingsWithHeight', ('id', 'height'))
+
+    buildings = []
+
+    for building_id, height in enumerate(sequence):
+        while buildings and buildings[-1].height <= height:
+            buildings.pop()
+
+        buildings.append(BuildingsWithHeight(building_id, height))
+
+    return [b.id for b in reversed(buildings)]
 
 
 def examine_buildings_with_sunset_wrapper(sequence):

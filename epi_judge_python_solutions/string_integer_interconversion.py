@@ -21,13 +21,13 @@ def int_to_string(x):
     # Adds the negative sign back if is_negative
     return ('-' if is_negative else '') + ''.join(reversed(s))
 
+print(int_to_string(-34.4))
+
 
 def string_to_int(s):
 
     return functools.reduce(
-        lambda running_sum, c: running_sum * 10 + string.digits.index(c),
-        s[s[0] == '-':], 0) * (-1 if s[0] == '-' else 1)
-
+        lambda running_sum, c: running_sum * 10 + string.digits.index(c), s[s[0] == '-':], 0) * (-1 if s[0] == '-' else 1)
 
 def wrapper(x, s):
     if int_to_string(x) != s:

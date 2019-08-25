@@ -24,6 +24,8 @@ def find_all_substrings(s, words):
         if match_all_words_in_dict(i)
     ]
 
+print(find_all_substrings('srikiran', ['sri', 'kir']))
+
 
 if __name__ == '__main__':
     exit(

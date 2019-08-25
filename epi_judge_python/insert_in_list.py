@@ -1,15 +1,23 @@
 import functools
 
-from list_node import ListNode
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
+from list_node import ListNode
 
 
 # Insert new_node after node.
 def insert_after(node, new_node):
-    # TODO - you fill in here.
+    new_node.next = node.next
+    node.next = new_node
     return
 
+def array_to_linked_list(A):
+    dummy_head = tail = ListNode()
+    for i in A:
+        insert_after(tail, ListNode(i))
+        tail = tail.next
+
+    return dummy_head.next
 
 @enable_executor_hook
 def insert_list_wrapper(executor, l, node_idx, new_node_data):

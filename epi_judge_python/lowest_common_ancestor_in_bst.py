@@ -8,7 +8,17 @@ from test_framework.test_utils import enable_executor_hook
 
 # Input nodes are nonempty and the key at s is less than or equal to that at b.
 def find_LCA(tree, s, b):
-    # TODO - you fill in here.
+    if s.data > b.data:
+        s, b = b, s
+
+    while tree:
+        if tree.data >= s.data and tree.data <= b.data:
+            return tree
+        
+        if tree.data < s.data:
+            tree = tree.right
+        else:
+            tree = tree.left
     return None
 
 

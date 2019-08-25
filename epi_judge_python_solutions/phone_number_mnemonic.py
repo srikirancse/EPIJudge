@@ -22,6 +22,8 @@ def phone_mnemonic(phone_number):
     phone_mnemonic_helper(0)
     return mnemonics
 
+print(phone_mnemonic('1234'))
+
 
 # Pythonic solution
 def phone_mnemonic_pythonic(phone_number):

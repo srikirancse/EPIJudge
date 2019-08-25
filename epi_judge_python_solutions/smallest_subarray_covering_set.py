@@ -33,6 +33,8 @@ def find_smallest_subarray_covering_set(paragraph, keywords):
             left += 1
     return result
 
+print(find_smallest_subarray_covering_set(["a", "b", "c", "b", "a", "d", "c", "a", "e", "a", "a", "b", "e"], ["b", "c", "e"]))
+
 
 @enable_executor_hook
 def find_smallest_subarray_covering_set_wrapper(executor, paragraph, keywords):

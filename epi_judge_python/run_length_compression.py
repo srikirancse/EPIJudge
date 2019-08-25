@@ -1,15 +1,39 @@
 from test_framework import generic_test
 from test_framework.test_failure import TestFailure
 
-
 def decoding(s):
-    # TODO - you fill in here.
-    return ''
+    result, count = [], 0
+    
+    for i in s:
+        if i.isdigit():
+            count = (count * 10) + int(i)
+        else:
+            result.append(i * count)
+            count = 0
 
+    return ''.join(result)
 
+    
 def encoding(s):
-    # TODO - you fill in here.
-    return ''
+    i, result = 0, []
+
+    while i < len(s):
+        count = 1
+        while i + 1 < len(s) and s[i] == s[i + 1]:
+            count += 1
+            i += 1
+
+        result.append(str(count) + s[i])
+        i += 1
+
+    return ''.join(result)
+
+print(encoding('aaaabbccccccddd'))
+
+
+
+
+
 
 
 def rle_tester(encoded, decoded):

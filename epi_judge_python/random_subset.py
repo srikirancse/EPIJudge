@@ -1,4 +1,5 @@
 import functools
+import random
 
 from test_framework import generic_test
 from test_framework.random_sequence_checker import (
@@ -6,11 +7,36 @@ from test_framework.random_sequence_checker import (
     compute_combination_idx, run_func_with_retries)
 from test_framework.test_utils import enable_executor_hook
 
+import random
 
 def random_subset(n, k):
-    # TODO - you fill in here.
-    return []
+    res = {}
+    for i in range(k):
+        r = (random.randint(i, n - 1))
+        new_i_value = res.get(r, r)
+        new_r_value = res.get(i, i)
+        res[i] = new_i_value
+        res[r] = new_r_value
+    return [res[i] for i in range(k)]
 
+print(random_subset(8, 4))
+
+# def random_sampling(k ,A):
+#     for i in range(k):
+#         r = random.randint(i, len(A) - 1)
+#         A[i], A[r] = A[r], A[i]
+
+#     return A
+
+
+def random_sampling(k ,A):
+    for i in range(k):
+        r = random.randint(i, len(A) - 1)
+        A[r], A[i] = A[i], A[r]
+
+    return A
+
+print(random_subset(8, 4))
 
 @enable_executor_hook
 def random_subset_wrapper(executor, n, k):

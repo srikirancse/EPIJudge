@@ -2,29 +2,32 @@ from test_framework import generic_test
 
 
 def inorder_traversal(tree):
+    result = []
 
-    prev, result = None, []
+    while tree.left:
+        tree = tree.left
+
     while tree:
-        if prev is tree.parent:
-            # We came down to tree from prev.
-            if tree.left:  # Keep going left.
-                next = tree.left
-            else:
-                result.append(tree.data)
-                # Done with left, so go right if right is not empty. Otherwise,
-                # go up.
-                next = tree.right or tree.parent
-        elif tree.left is prev:
-            # We came up to tree from its left child.
-            result.append(tree.data)
-            # Done with left, so go right if right is not empty. Otherwise, go
-            # up.
-            next = tree.right or tree.parent
-        else:  # Done with both children, so move up.
-            next = tree.parent
+        result.append(tree.data)
+        tree = next_inorder_successor(tree)
 
-        prev, tree = tree, next
     return result
+
+
+def next_inorder_successor(node):
+    if node.right:
+        node = node.right
+        while node.left:
+            node = node.left
+
+        return node
+
+    else:
+        while node.parent and node is node.parent.right:
+            node = node.parent
+
+        return node.parent
+         
 
 
 if __name__ == '__main__':

@@ -20,7 +20,6 @@ def look_and_say(n):
         s = next_number(s)
     return s
 
-
 # Pythonic solution uses the power of itertools.groupby().
 def look_and_say_pythonic(n):
     s = '1'

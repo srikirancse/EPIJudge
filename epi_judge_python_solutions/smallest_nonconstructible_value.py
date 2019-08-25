@@ -12,6 +12,7 @@ def smallest_nonconstructible_value(A):
         max_constructible_value += a
     return max_constructible_value + 1
 
+print(smallest_nonconstructible_value([1, 1, 4, 4, 6]))
 
 def smallest_nonconstructible_value_pythonic(A):
     return functools.reduce(

@@ -11,8 +11,13 @@ class GraphVertex:
 
 
 def is_any_placement_feasible(graph):
-    # TODO - you fill in here.
-    return True
+    def dfs(s, color):
+        s.d = color
+        for child in s.edges:
+            if (child.d == -1 and not dfs(child, 1 - color)) or child.d == s.d:
+                return False
+        return True
+    return all(dfs(v, 0) for v in graph if v.d == -1)
 
 
 @enable_executor_hook

@@ -1,5 +1,6 @@
 import functools
 import math
+import heapq
 
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
@@ -27,8 +28,38 @@ class Star:
 
 
 def find_closest_k_stars(stars, k):
-    # TODO - you fill in here.
-    return []
+    max_heap = []
+    for star in stars:
+        if len(max_heap) == k + 1:
+            heapq.heappushpop(max_heap, (-star.distance, star))
+        else:
+            heapq.heappush(max_heap, (-star.distance, star))
+    return [s[1] for s in heapq.nlargest(k, max_heap)]
+
+
+# def find_closest_k_nums(nums, k):
+#     max_heap = []
+#     map(lambda x: heapq.heappushpop(max_heap, -x)
+#         if len(max_heap) == k + 1 else heapq.heappush(max_heap, -x), nums)
+#     return [-s for s in heapq.nlargest(k, max_heap)]
+
+def find_closest_k_nums(nums, k):
+    max_heap = []
+    list(map(lambda x: heapq.heappushpop(max_heap, -x)
+             if len(max_heap) == k + 1 else heapq.heappush(max_heap, -x), nums))
+    return [-s for s in heapq.nlargest(k, max_heap)]
+
+# def find_closest_k_nums(nums, k):
+#     max_heap = []
+#     for num in nums:
+#         if len(max_heap) == k + 1:
+#             heapq.heappushpop(max_heap, -num)
+#         else:
+#             heapq.heappush(max_heap, -num), nums
+#     return [-s for s in heapq.nlargest(k, max_heap)]
+
+
+print(find_closest_k_nums([1, 5, 6, 3, 8, 9, 10], 4))
 
 
 def comp(expected_output, output):

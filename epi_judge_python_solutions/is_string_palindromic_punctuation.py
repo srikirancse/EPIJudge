@@ -16,6 +16,7 @@ def is_palindrome(s):
         i, j = i + 1, j - 1
     return True
 
+print(is_palindrome("I am,. ma I"))
 
 def is_palindrome_pythonic(s):
     return all(a == b for a, b in zip(

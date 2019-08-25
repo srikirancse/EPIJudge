@@ -7,7 +7,24 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def lca(node0, node1):
-    # TODO - you fill in here.
+    visited_ancestors = set()
+    iter1, iter2 = node0, node1
+
+    while iter1 or iter2:
+        if iter1:
+            if iter1 in visited_ancestors:
+                return iter1
+
+            visited_ancestors.add(iter1)
+            iter1 = iter1.parent
+
+        if iter2:
+            if iter2 in visited_ancestors:
+                return iter2
+
+            visited_ancestors.add(iter2)
+            iter2 = iter2.parent
+
     return None
 
 

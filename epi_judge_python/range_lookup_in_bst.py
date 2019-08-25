@@ -6,8 +6,25 @@ Interval = collections.namedtuple('Interval', ('left', 'right'))
 
 
 def range_lookup_in_bst(tree, interval):
-    # TODO - you fill in here.
-    return []
+    result = []
+
+    def range_lookup_in_bst_helper(tree):
+        if tree is None:
+            return
+
+        if interval.left <= tree.data <= interval.right:
+            range_lookup_in_bst_helper(tree.left)
+            result.append(tree.data)
+            range_lookup_in_bst_helper(tree.right)
+
+        elif interval.left > tree.data:
+            range_lookup_in_bst_helper(tree.right)
+
+        else:
+            range_lookup_in_bst_helper(tree.left)
+
+    range_lookup_in_bst_helper(tree)
+    return result
 
 
 def range_lookup_in_bst_wrapper(tree, i):

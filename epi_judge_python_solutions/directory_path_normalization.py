@@ -11,8 +11,7 @@ def shortest_equivalent_path(path):
     if path[0] == '/':
         path_names.append('/')
 
-    for token in (token for token in path.split('/')
-                  if token not in ['.', '']):
+    for token in (token for token in path.split('/') if token not in ['.', '']):
         if token == '..':
             if not path_names or path_names[-1] == '..':
                 path_names.append(token)

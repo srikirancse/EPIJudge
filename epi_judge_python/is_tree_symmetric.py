@@ -2,8 +2,16 @@ from test_framework import generic_test
 
 
 def is_symmetric(tree):
-    # TODO - you fill in here.
-    return True
+    def check_symmetry(left, right):
+        if not left and not right:
+            return True
+
+        if left and right and left.data == right.data:
+            return check_symmetry(left.left, right.right) and check_symmetry(right.left, left.right)
+
+        return False
+
+    return not tree or check_symmetry(tree.left, tree.right)
 
 
 if __name__ == '__main__':
