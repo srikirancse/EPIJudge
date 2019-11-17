@@ -1,26 +1,24 @@
 from test_framework import generic_test
 
-import collections
+from collections import Counter
 
 
 def find_all_substrings(s, words):
-    def match_all_words_in_dict(start):
-        cur_word_to_freq = collections.Counter()
-        for i in range(start, start + word_length, word_length):
-            cur_word = s[i:i + word_length]
-            cur_word_to_freq[cur_word] += 1
-            if word_to_freq[cur_word] == 0:
+    words_freq = Counter(words)
+    word_len = len(words[0])
+
+    def word_in_dict(start):
+        cur_words_feq = Counter()
+        for i in range(start, start + len(words) * word_len, word_len):
+            word = s[i : i + word_len]
+            cur_words_feq[word] += 1
+            word_freq = words_freq[word]
+            if word_freq == 0 or cur_words_feq[word] > word_freq:
                 return False
-            if cur_word_to_freq[cur_word] > word_to_freq[cur_word]:
-                return False
+
         return True
 
-    word_length = len(words[0])
-    word_to_freq = collections.Counter(words)
-    return [
-        i for i in range(len(s) - word_length * len(words) + 1) if match_all_words_in_dict(i)
-    ]
-
+    return [i for i in range(len(s) - word_len * len(words) + 1) if word_in_dict(i)]
 
 print(find_all_substrings('srikiran', ['sri', 'kir']))
 

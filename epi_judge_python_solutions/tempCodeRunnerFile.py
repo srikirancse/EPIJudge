@@ -1,0 +1,1 @@
+sum([(A[i : middle_red_idx] if i < middle_red_idx else A[middle_red_idx + 1 : i]).count('W') for i, c in enumerate(A) if c == 'R' and i != middle_red_idx])

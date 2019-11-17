@@ -6,25 +6,30 @@ from test_framework.test_utils import enable_executor_hook
 
 
 def decompose_into_dictionary_words(domain, dictionary):
-    end_word_distance = [-1] * len(domain)
-
+    dp = [-1] * len(domain)
     for i in range(len(domain)):
         if domain[:i + 1] in dictionary:
-            end_word_distance[i] = i + 1
-        else:
-            for j in range(i):
-                if end_word_distance[j] != -1 and domain[j + 1 : i + 1] in dictionary:
-                    end_word_distance[i] = i - j
-                    break
+            dp[i] = i + 1
 
-    decompositions = []
-    if end_word_distance[-1] != -1:
-        idx = len(domain) - 1
-        while idx >= 0:
-            decompositions.append(domain[idx + 1 - end_word_distance[idx] : idx + 1])
-            idx -= end_word_distance[idx]
-        decompositions = decompositions[::-1]
-    return decompositions
+        if dp[i] == -1:
+            for j in range(i):
+                if dp[j] != -1 and domain[j + 1:i + 1] in dictionary:
+                    dp[i] = i - j
+
+    if dp[-1] == -1:
+        return []
+        
+    i = len(domain) - 1
+    res = []
+    while i >= 0:
+        res.append(domain[i - dp[i] + 1:i + 1])
+        i -= dp[i]
+
+    return res[::-1]
+
+
+# print(decompose_into_dictionary_words('bedbathandbeyond', set(['bed', 'bath', 'beyond', 'bat', 'hand', 'and'])))
+# print(decompose_into_dictionary_words('rawabawrawr', set(["raw", "abr", "bara", "rawa", "wr"])))
 
 
 @enable_executor_hook

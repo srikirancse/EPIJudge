@@ -9,9 +9,7 @@ def is_letter_constructible_from_magazine(letter_text, magazine_text):
             letter_text_frequency[c] -= 1
             if letter_text_frequency[c] == 0:
                 del letter_text_frequency[c]
-                if not letter_text_frequency:
-                    return True
-        
+
     return not letter_text_frequency
 
 

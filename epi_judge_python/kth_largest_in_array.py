@@ -9,33 +9,33 @@ import random
 # find_kth_largest(3, A) returns 1, and find_kth_largest(4, A) returns -1.
 def find_kth_largest(k, A):
     def find_kth(comp):
-        def partition_around_pivot(pivot_idx, left, right):
-            pivot_value = A[pivot_idx]
-            # Pivot is moved to the end
-            A[right], A[pivot_idx] = A[pivot_idx], A[right]
-            new_pivot_idx = left
+        def partition_around_pivot(pivot, start, end):
+            pivot_element, new_pivot = A[pivot], start
+            A[end], A[pivot] = A[pivot], A[end]
 
-            for i in range(left, right):
-                if comp(A[i], pivot_value):
-                    A[i], A[new_pivot_idx] = A[new_pivot_idx], A[i]
-                    new_pivot_idx += 1
-            A[new_pivot_idx], A[right] = A[right], A[new_pivot_idx]
-                
-            return new_pivot_idx
+            for i in range(start, end):
+                if comp(A[i], pivot_element):
+                    A[new_pivot], A[i] = A[i], A[new_pivot]
+                    new_pivot += 1
 
-        left, right = 0, len(A) - 1
-        while left <= right:
-            pivot = random.randint(left, right)
-            new_pivot = partition_around_pivot(pivot, left, right)
+            A[new_pivot], A[end] = A[end], A[new_pivot]
+            return new_pivot
+
+        start, end = 0, len(A) - 1
+        while start <= end:
+            pivot = random.randint(start, end)
+            new_pivot = partition_around_pivot(pivot, start, end)
 
             if new_pivot == k - 1:
                 return A[new_pivot]
+
             elif new_pivot > k - 1:
-                right = new_pivot - 1
+                end = new_pivot - 1
             else:
-                left = new_pivot + 1
+                start = new_pivot + 1
 
     return find_kth(operator.gt)
+
 
 if __name__ == '__main__':
     exit(

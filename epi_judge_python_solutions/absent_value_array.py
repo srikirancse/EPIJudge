@@ -24,7 +24,7 @@ def find_missing_element(stream):
     stream = stream_copy
     for x in stream_copy:
         upper_part_x = x >> 16
-        if candidate_bucket == upper_part_x:
+        if candidate_bucket == upper_   part_x:
             # Records the presence of 16 LSB of x.
             lower_part_x = ((1 << 16) - 1) & x
             candidates[lower_part_x] = 1

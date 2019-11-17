@@ -1,9 +1,13 @@
 from test_framework import generic_test, test_utils
+import collections
 
 
 def find_anagrams(dictionary):
-    # TODO - you fill in here.
-    return []
+    sorted_string_to_anagrams = collections.defaultdict(list)
+    for s in dictionary:
+        sorted_string_to_anagrams[''.join(sorted(s))].append(s)
+
+    return [i for i in sorted_string_to_anagrams.values() if len(i) > 1]
 
 
 if __name__ == '__main__':

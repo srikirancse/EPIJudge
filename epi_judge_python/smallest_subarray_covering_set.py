@@ -9,18 +9,18 @@ Subarray = collections.namedtuple('Subarray', ('start', 'end'))
 
 
 def find_smallest_subarray_covering_set(paragraph, keywords):
-    result, visited_table = Subarray(-1, -1), {}
+    visited, result = {}, Subarray(-1, -1)
 
-    for index, word in enumerate(paragraph):
+    for idx, word in enumerate(paragraph):
         if word in keywords:
-            visited_table[word] = index
+            visited[word] = idx
 
-            if len(visited_table) == len(keywords):
-                new_indices = visited_table.values()
-                if result == Subarray(-1, -1) or result[1] - result[0] > index - min(new_indices):
-                    result = Subarray(min(new_indices), index)
+            if len(visited) == len(keywords):
+                new_indices = visited.values()
+                if result == Subarray(-1, -1) or result[1] - result[0] > idx - min(new_indices):
+                    result = Subarray(min(new_indices), idx)
+
     return result
-
 
 @enable_executor_hook
 def find_smallest_subarray_covering_set_wrapper(executor, paragraph, keywords):

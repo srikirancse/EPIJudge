@@ -11,13 +11,15 @@ def search_entry_equal_to_its_index(A):
     while start <= end:
         mid = (start + end) // 2
 
-        if A[mid] > mid:
-            end = mid - 1
-        elif A[mid] == mid:
+        if mid > A[mid]:
+            start = mid + 1
+
+        elif mid == A[mid]:
             result = mid
             end = mid - 1
+
         else:
-            start = mid + 1
+            end = mid - 1
 
     return result
 

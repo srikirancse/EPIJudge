@@ -9,27 +9,37 @@ Person = collections.namedtuple('Person', ('age', 'name'))
 
 
 def group_by_age(people):
-    age_to_count = collections.Counter(person.age for person in people)
+    age_count = collections.Counter([p.age for p in people])
     age_to_offset, offset = {}, 0
 
-    for age, count in age_to_count.items():
+    for age, count in age_count.items():
         age_to_offset[age] = offset
         offset += count
 
     while age_to_offset:
-        from_age = next(iter(age_to_offset))
-        from_idx = age_to_offset[from_age]
+        form_age = next(iter(age_to_offset))
+        from_idx = age_to_offset[form_age]
         to_age = people[from_idx].age
         to_idx = age_to_offset[to_age]
 
         people[from_idx], people[to_idx] = people[to_idx], people[from_idx]
 
-        age_to_count[to_age] -= 1
+        age_count[to_age] -= 1
 
-        if age_to_count[to_age]:
+        if age_count[to_age]:
             age_to_offset[to_age] += 1
         else:
             del age_to_offset[to_age]
+
+
+
+print(group_by_age(list(
+        map(lambda x: Person(x[0], x[1]),
+            [
+                [13, "Oliver"], [4, "Quincy"], [10, "Bob"], [27, "Quincy"], [11, "Sam"], [13, "Frank"],
+                [4, "Mary"], [13, "Thomas"]
+            ]))))
+
 
 @enable_executor_hook
 def group_by_age_wrapper(executor, people):

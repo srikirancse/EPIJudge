@@ -2,28 +2,31 @@ from test_framework import generic_test
 
 
 def longest_contained_range(A):
-    a_set = set(A)
-    max_length = 0
+    unprocessed_entries = set(A)
+    result = 0
 
-    while a_set:
-        a = a_set.pop()
-        cur_length = 1
-
+    while unprocessed_entries:
+        a = unprocessed_entries.pop()
+        local_max = 1
+        # Lower bound
         lower_bound = a - 1
-        while lower_bound in a_set:
-            a_set.remove(lower_bound)
+        while lower_bound in unprocessed_entries:
+            local_max += 1
+            unprocessed_entries.remove(lower_bound)
             lower_bound -= 1
-            cur_length += 1
         
+        # Upper bound
         upper_bound = a + 1
-        while upper_bound in a_set:
-            a_set.remove(upper_bound)
+        while upper_bound in unprocessed_entries:
+            local_max += 1
+            unprocessed_entries.remove(upper_bound)
             upper_bound += 1
-            cur_length += 1
 
-        max_length = max(max_length, cur_length)
+        result = max(result, local_max)
 
-    return max_length
+    return result
+
+
 
 
 if __name__ == '__main__':

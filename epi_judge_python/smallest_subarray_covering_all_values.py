@@ -7,34 +7,30 @@ from test_framework.test_utils import enable_executor_hook
 
 Subarray = collections.namedtuple('Subarray', ('start', 'end'))
 
+
 def find_smallest_sequentially_covering_subset(paragraph, keywords):
-    keyword_sequence = { v: k for k, v in enumerate(keywords) }
-    subarray_length = [float('inf')] * len(keywords)
+    key_word_sequence = {v: k for k, v in enumerate(keywords)}
     last_occurrence = [-1] * len(keywords)
-    shortest_distance = float('inf')
+    smallest_distance = [float('inf')] * len(keywords)
+    smallest_length = float('inf')
     result = Subarray(-1, -1)
 
-    for index, word in enumerate(paragraph):
-        if word in keyword_sequence:
-            keyword_idx = keyword_sequence[word]
+    for i, word in enumerate(paragraph):
+        if word in key_word_sequence:
+            keyword_idx = key_word_sequence[word]
             if keyword_idx == 0:
-                subarray_length[0] = 1
+                smallest_distance[0] = 1
 
-            elif subarray_length[keyword_idx - 1] != float('inf'):
-                new_distance = (index - last_occurrence[keyword_idx - 1]) + subarray_length[keyword_idx - 1]
-                subarray_length[keyword_idx] = new_distance
+            elif smallest_distance[keyword_idx - 1] != float('inf'):
+                smallest_distance[keyword_idx] = (
+                    i - last_occurrence[keyword_idx - 1]) + smallest_distance[keyword_idx - 1]
+            last_occurrence[keyword_idx] = i
 
-            last_occurrence[keyword_idx] = index
-
-            if keyword_idx == len(keywords) - 1 and subarray_length[-1] < shortest_distance:
-                # If the new distance is greater less than the old distance then we need to update it.
-                shortest_distance = subarray_length[-1]
-                result = Subarray(index - shortest_distance + 1, index)
-
+            if keyword_idx == len(key_word_sequence) - 1 and smallest_distance[-1] < smallest_length:
+                smallest_length = smallest_distance[-1]
+                result = Subarray(i - smallest_length + 1, i)
 
     return result
-
-print(find_smallest_sequentially_covering_subset(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "2", "4", "6", "1", "0", "1", "0", "1", "0", "3", "2", "1", "0"], ["0", "2", "9", "4", "6"]))
 
 
 @enable_executor_hook

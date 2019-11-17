@@ -12,19 +12,21 @@ class Name:
         return self.first_name == other.first_name
 
     def __lt__(self, other):
-        return (self.first_name < other.first_name
-                if self.first_name != other.first_name else
-                self.last_name < other.last_name)
+        return (self.first_name < other.first_name if self.first_name != other.first_name else self.last_name < other.last_name)
 
 
 def eliminate_duplicate(A):
     A.sort()
-    write_idx = 1
-    for candidate in A[1:]:
-        if candidate != A[write_idx - 1]:
-            A[write_idx] = candidate
-            write_idx += 1
-    del A[write_idx:]
+    write_index = 1
+    for cand in A[1:]:
+        if cand != A[write_index - 1]:
+            A[write_index] = cand
+            write_index += 1
+
+    del A[write_index:]
+
+
+eliminate_duplicate([["Foo", "1"], ["ABC", "1"], ["Foo", "1"]])
 
 @enable_executor_hook
 def eliminate_duplicate_wrapper(executor, names):

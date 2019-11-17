@@ -8,10 +8,17 @@ from test_framework.test_utils import enable_executor_hook
 
 import random
 
+
 def random_sampling(k, A):
     for i in range(k):
         random_index = random.randint(i, len(A) - 1)
         A[i], A[random_index] = A[random_index], A[i]
+
+    return A
+
+
+print(random_sampling(5, [1, 2, 3, 4, 5]))
+
 
 @enable_executor_hook
 def random_sampling_wrapper(executor, k, A):
